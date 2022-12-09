@@ -19,14 +19,21 @@ import com.fiserv.exceptions.SessionException;
 import java.rmi.RemoteException;
 import javax.xml.namespace.QName;
 
-final public class Session {
-    final String biBusHeader = "biBusHeader";
-    final String biBusNamespace = "http://developer.cognos.com/schemas/bibus/3/";
+public final class Session {
+    static final String BI_BUS_HEADER = "biBusHeader";
+    static final String BI_BUS_NAMESPACE = "http://developer.cognos.com/schemas/bibus/3/";
 
-    private ContentManagerService_PortType cmService;
-    private ContentManagerService_ServiceLocator cmServiceLocator;
-    private EventManagementService_PortType eventService;
-    private EventManagementService_ServiceLocator eventServiceLocator;
+    public ContentManagerService_PortType getCmService() {
+        return cmService;
+    }
+
+    public EventManagementService_PortType getEventService() {
+        return eventService;
+    }
+
+    private final ContentManagerService_PortType cmService;
+    private final EventManagementService_PortType eventService;
+
 
     private String endpoint;
 
@@ -38,8 +45,8 @@ final public class Session {
         {
             endpoint = url;
             //initialize the service locators
-            eventServiceLocator = new EventManagementService_ServiceLocator();
-            cmServiceLocator = new ContentManagerService_ServiceLocator();
+            EventManagementService_ServiceLocator eventServiceLocator = new EventManagementService_ServiceLocator();
+            ContentManagerService_ServiceLocator cmServiceLocator = new ContentManagerService_ServiceLocator();
 
             //get the service objects from the locators
             eventService = eventServiceLocator.geteventManagementService(new java.net.URL(endpoint));
@@ -73,12 +80,12 @@ final public class Session {
 
         try {
 
-            SOAPHeaderElement temp = ((Stub)cmService).getResponseHeader(biBusNamespace, biBusHeader);
-            BiBusHeader bibus = (BiBusHeader)temp.getValueAsType(new QName(biBusNamespace, biBusHeader));
+            SOAPHeaderElement temp = ((Stub)cmService).getResponseHeader(BI_BUS_NAMESPACE, BI_BUS_HEADER);
+            BiBusHeader bibus = (BiBusHeader)temp.getValueAsType(new QName(BI_BUS_NAMESPACE, BI_BUS_HEADER));
 
             if (bibus != null)
             {
-                ((Stub)eventService).setHeader(biBusNamespace, biBusHeader, bibus);
+                ((Stub)eventService).setHeader(BI_BUS_NAMESPACE, BI_BUS_HEADER, bibus);
                 return true;
             }
         } catch (Exception e) {
@@ -104,7 +111,7 @@ final public class Session {
         biBus.setCAM(cam);
         biBus.setHdrSession(header);
 
-        ((Stub)cmService).setHeader(biBusNamespace, biBusHeader, biBus);
+        ((Stub)cmService).setHeader(BI_BUS_NAMESPACE, BI_BUS_HEADER, biBus);
 
         return true;
     }
@@ -114,7 +121,7 @@ final public class Session {
         try
         {
             final XmlEncodedXML credentialXEX = new XmlEncodedXML();
-            final StringBuffer credentialXML = new StringBuffer();
+            final StringBuilder credentialXML = new StringBuilder();
             credentialXML.append("<credential>");
             credentialXML.append("<namespace>" + namespace + "</namespace>");
             credentialXML.append("<password>" + passwd + "</password>");
@@ -132,17 +139,16 @@ final public class Session {
 
         try {
 
-            SOAPHeaderElement temp = ((Stub)cmService).getResponseHeader(biBusNamespace, biBusHeader);
-            BiBusHeader biBus = (BiBusHeader)temp.getValueAsType(new QName(biBusNamespace, biBusHeader));
+            SOAPHeaderElement temp = ((Stub)cmService).getResponseHeader(BI_BUS_NAMESPACE, BI_BUS_HEADER);
+            BiBusHeader biBus = (BiBusHeader)temp.getValueAsType(new QName(BI_BUS_NAMESPACE, BI_BUS_HEADER));
 
             if (biBus != null)
             {
-                ((Stub)eventService).setHeader(biBusNamespace, biBusHeader, biBus);
+                ((Stub)eventService).setHeader(BI_BUS_NAMESPACE, BI_BUS_HEADER, biBus);
                 return true;
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println("Failed to login");
         }
         return false;
     }

@@ -97,6 +97,11 @@
     </dependency>
     <dependency>
       <groupId>com.ibm.cognos</groupId>
+      <artifactId>activation</artifactId>
+      <version>11.1.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ibm.cognos</groupId>
       <artifactId>jaxrpc</artifactId>
       <version>11.1.7</version>
     </dependency>

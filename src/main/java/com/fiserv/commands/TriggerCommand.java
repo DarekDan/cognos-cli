@@ -1,6 +1,8 @@
 package com.fiserv.commands;
 
 import com.fiserv.CognosCliCommand;
+import com.fiserv.cognos.Session;
+import java.rmi.RemoteException;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.ParentCommand;
@@ -18,6 +20,16 @@ public class TriggerCommand implements Runnable {
     public void run() {
         if(parentCommand.verbose){
             System.out.printf("Invoking trigger %s%n", triggerName);
+        }
+        Session session = new Session(parentCommand.dispatcherUrl);
+        if(session.login(parentCommand.userNamespace, parentCommand.userName, parentCommand.userPassword)){
+            try {
+                if(session.getEventService().trigger(triggerName)>0){
+                    System.out.printf("Trigger %s has been invoked%n",triggerName);
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
