@@ -1,0 +1,6 @@
+applicationType: cli
+defaultPackage: com.fiserv
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [app-name, graalvm, jackson-databind, java, junit, logback, maven, picocli, picocli-java-application, picocli-junit, readme, shade, yaml]
