@@ -7,8 +7,10 @@ versions will be provided for each OS.
 ## Sample usage
 
 ```shell
-java -jar cognos-cli-0.2.jar -v --url http://localhost:9300/p2pd/servlet/dispatch -u userNameHere -p PassWordHere -n NamespaceHer 
-trigger TriggerOne "Trigger with space" Trigger_Two
+java -jar cognos-cli-0.2.jar -v 
+     --url http://localhost:9300/p2pd/servlet/dispatch 
+     -u userNameHere -p passWordHere -n nameSpaceHere 
+     trigger TriggerOne "Trigger with space" Trigger_Two
 ```
 
 ## Installation of dependent Cognos Analytics Java SDK libaries
