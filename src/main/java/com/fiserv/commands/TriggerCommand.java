@@ -21,7 +21,7 @@ public class TriggerCommand implements Runnable {
     @Override
     public void run() {
         Session session = new Session(parentCommand.dispatcherUrl);
-        if (session.login(parentCommand.userNamespace, parentCommand.userName, parentCommand.userPassword)) {
+        if (session.login(parentCommand.userNamespace, parentCommand.userName, String.valueOf(parentCommand.userPassword))) {
             try {
                 for (String triggerName : triggerNames) {
                     if (parentCommand.verbose) {

@@ -14,10 +14,10 @@ public class VerifyCommand implements Runnable {
     @Override
     public void run() {
         Session session = new Session(parentCommand.dispatcherUrl);
-        if(session.loginAnonymous()){
+        if (session.loginAnonymous()) {
             System.out.println("Anonymous access is enabled");
         } else {
-            if(session.login(parentCommand.userNamespace, parentCommand.userName, parentCommand.userPassword)){
+            if (session.login(parentCommand.userNamespace, parentCommand.userName, String.valueOf(parentCommand.userPassword))) {
                 System.out.println("Credentials are valid");
             } else {
                 System.out.println("Invalid credentials");

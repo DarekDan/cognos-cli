@@ -20,8 +20,8 @@ public class CognosCliCommand implements Runnable {
     @Option(names = {"-u", "--user"}, description = "User name to log in with")
     public String userName;
 
-    @Option(names = {"-p", "--password"}, description = "User password to log in with")
-    public String userPassword;
+    @Option(names = {"-p", "--password"}, interactive = true, arity = "0..1", description = "User password to log in with")
+    public char[] userPassword;
 
     @Option(names = {"-n", "--namespace"}, description = "Namespace name to log in with")
     public String userNamespace;
