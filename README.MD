@@ -51,8 +51,10 @@ or
 ```shell
 java -jar target/cognos-cli-0.2.jar -v 
      --url http://localhost:9300/p2pd/servlet/dispatch 
-     -u userNameHere -n nameSpaceHere -p verify
+     -n nameSpaceHere -u userNameHere -p verify
 ```
+
+As you may notice, the order of parameters is not important.
 
 ## Installation of dependent Cognos Analytics Java SDK libaries
 
