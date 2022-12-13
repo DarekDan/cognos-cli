@@ -50,7 +50,7 @@ or
 
 ```shell
 java -jar target/cognos-cli-0.2.jar -v 
-     --url http://l1pvap1431.1dc.com:9300/p2pd/servlet/dispatch 
+     --url http://localhost:9300/p2pd/servlet/dispatch 
      -u userNameHere -n nameSpaceHere -p verify
 ```
 
